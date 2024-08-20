@@ -16,14 +16,29 @@
         .contact-details p {
             margin-bottom: 0.5rem;
         }
+           /* Hero section responsive adjustments */
+           @media (max-width: 768px) {
+            .display-4 {
+                font-size: 2.5rem;
+            }
+
+            .lead {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-light">
+    
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <img src="dark-logo-2.png" alt="Shoki Bricklayer Ltd" height="40">
+            </a>
             <a class="navbar-brand fw-bold" href="#">Shoki Bricklayer Ltd</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -32,7 +47,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="index.html">Home</a>
-                    </li>    
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">About Us</a>
                     </li>
@@ -49,6 +64,7 @@
             </div>
         </div>
     </nav>
+
 
     <!-- Contact Section -->
     <section id="contact" class="py-5 bg-white">
