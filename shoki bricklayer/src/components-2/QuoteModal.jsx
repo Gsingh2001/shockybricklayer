@@ -2,26 +2,27 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import styles for toast notifications
+import { API_ENDPOINTS } from '../assets/helper/utils';
 
 const QuoteModal = ({ show, handleClose }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
         try {
-            const response = await fetch('http://localhost:3000/submit-quote', {
+            const response = await fetch(API_ENDPOINTS.SUBMIT_QUOTE, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
             });
-
+    
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
+    
             const result = await response.json();
             toast.success(result.message || 'Quote submitted successfully!');
             handleClose(); // Close modal after submission
@@ -29,6 +30,7 @@ const QuoteModal = ({ show, handleClose }) => {
             toast.error(`Error submitting quote: ${error.message}`);
         }
     };
+    
 
     return (
         <>
@@ -123,7 +125,6 @@ const QuoteModal = ({ show, handleClose }) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <ToastContainer /> {/* Toast notifications container */}
         </>
     );
 };

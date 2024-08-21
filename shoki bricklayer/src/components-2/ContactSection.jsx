@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { API_ENDPOINTS } from '../assets/helper/utils';
 
 const ContactSection = () => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +21,7 @@ const ContactSection = () => {
 
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3000/submit-form', {
+      const response = await fetch(API_ENDPOINTS.SUBMIT_FORM, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +30,8 @@ const ContactSection = () => {
       });
 
       if (response.ok) {
-        toast.success('Thank you for your message!');
+        const result = await response.json();
+        toast.success(result.message || 'Thank you for your message!');
         form.reset();
       } else {
         throw new Error('There was a problem with the form submission.');
@@ -103,7 +105,6 @@ const ContactSection = () => {
           ></iframe>
         </div>
       </Container>
-      <ToastContainer />
     </section>
   );
 };
