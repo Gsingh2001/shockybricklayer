@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
-const fs = require('fs');
-const path = require('path');
 const cors = require('cors'); // Import the cors package
 require('dotenv').config(); // To load environment variables from .env file
 
@@ -47,20 +45,6 @@ const sendEmail = (data, type) => {
 app.post('/submit-form', (req, res) => {
   const formData = req.body;
 
-  // Read existing data
-  const filePath = path.join(__dirname, 'db.json');
-  let dbData = [];
-
-  if (fs.existsSync(filePath)) {
-    dbData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  }
-
-  // Add new data
-  dbData.push(formData);
-
-  // Write updated data to db.json
-  fs.writeFileSync(filePath, JSON.stringify(dbData, null, 2));
-
   // Send email
   sendEmail(formData, 'form')
     .then(() => {
@@ -76,20 +60,6 @@ app.post('/submit-form', (req, res) => {
 app.post('/submit-quote', (req, res) => {
   const quoteData = req.body;
 
-  // Read existing data
-  const filePath = path.join(__dirname, 'quotes-db.json');
-  let quotesData = [];
-
-  if (fs.existsSync(filePath)) {
-    quotesData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  }
-
-  // Add new data
-  quotesData.push(quoteData);
-
-  // Write updated data to quotes-db.json
-  fs.writeFileSync(filePath, JSON.stringify(quotesData, null, 2));
-
   // Send email
   sendEmail(quoteData, 'quote')
     .then(() => {
@@ -99,18 +69,6 @@ app.post('/submit-quote', (req, res) => {
       console.error('Error sending email:', error);
       res.status(500).json({ message: 'Error submitting quote request.' });
     });
-});
-
-// API endpoint to get quotes
-app.get('/get-quotes', (req, res) => {
-  const filePath = path.join(__dirname, 'quotes-db.json');
-
-  if (fs.existsSync(filePath)) {
-    const quotesData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    res.status(200).json(quotesData);
-  } else {
-    res.status(404).json({ message: 'No quotes found.' });
-  }
 });
 
 // Start server
