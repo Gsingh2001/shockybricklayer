@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors = require('cors'); // Import the cors package
-require('dotenv').config(); // To load environment variables from .env file
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000; // Use environment variable or default to 3000
@@ -70,6 +70,9 @@ app.post('/submit-quote', (req, res) => {
       res.status(500).json({ message: 'Error submitting quote request.' });
     });
 });
+
+
+
 
 // Start server
 app.listen(port, () => {
