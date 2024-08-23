@@ -14,6 +14,7 @@ import CustomNavbar from './components-2/Navbar'; // Import the new Navbar compo
 import Loader from './components-2/Loader'; // Import the loader component
 import QuoteModal from './components-2/QuoteModal'; // Import the QuoteModal component
 import { ToastContainer } from 'react-toastify';
+;
 
 function App() {
   const [loading, setLoading] = useState(true);
